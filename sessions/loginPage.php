@@ -12,7 +12,7 @@
       font-family: 'Segoe UI', sans-serif;
     }
     .bg-image {
-      background: url('your-image.jpg') no-repeat center center/cover;
+      background: url('../images/loginPage.jpg') no-repeat center center/cover;
       width: 100%;
       height: 100%;
       display: flex;
