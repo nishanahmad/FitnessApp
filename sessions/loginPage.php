@@ -71,16 +71,16 @@
     </div>
     <h2 class="fw-bold">Calorie Friend</h2>
     <p class="mb-4">Your way to healthier you</p>
+	<form method="post" action="login.php">
+		<!-- Username field -->
+		<input type="text" name="user_name" class="form-control mb-3" placeholder="Username" required>
 
-    <!-- Username field -->
-    <input type="text" class="form-control mb-3" placeholder="Username" required>
+		<!-- Password field -->
+		<input type="password" name="password" class="form-control mb-3" placeholder="Password" required>
 
-    <!-- Password field -->
-    <input type="password" class="form-control mb-3" placeholder="Password" required>
-
-    <!-- Login button -->
-    <button class="btn btn-login w-100 mb-3">Login</button>
-
+		<!-- Login button -->
+		<button class="btn btn-login w-100 mb-3">Login</button>
+	</form>
     <p class="login-text">Don't have an account? <a href="#">Sign up</a>.</p>
   </div>
 </div>
