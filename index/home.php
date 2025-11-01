@@ -128,17 +128,16 @@ if(isset($_SESSION["user_name"]))
 
     <!-- Meals -->
     <h6 class="fw-bold mb-3 text-center">Today</h6>
-    <div class="meal-card">
-      <div class="d-flex align-items-center">
-        <div class="meal-icon"><i class="bi bi-cup-hot"></i></div>
-        <div class="ms-2">
-          <div class="fw-bold">Breakfast</div>
-          <small class="text-muted">450 - 550 kcal</small>
-        </div>
-      </div>
-      <div><i class="bi bi-plus-circle"></i></div>
-    </div>
-
+	<div class="meal-card" onclick="breakfast()">
+	  <div class="d-flex align-items-center">
+		<div class="meal-icon"><i class="bi bi-cup-hot"></i></div>
+		<div class="ms-2">
+		  <div class="fw-bold">Breakfast</div>
+		  <small class="text-muted">450 - 550 kcal</small>
+		</div>
+	  </div>
+	  <div><i class="bi bi-plus-circle"></i></div>
+	</div>
     <div class="meal-card">
       <div class="d-flex align-items-center">
         <div class="meal-icon"><i class="bi bi-egg"></i></div>
@@ -173,7 +172,13 @@ if(isset($_SESSION["user_name"]))
   </div>
 
 
+<script>
+function breakfast()
+{
+    window.location = "../meals/new.php?meal=breakfast";
+}
 
+</script>
 </body>
 </html>
 
