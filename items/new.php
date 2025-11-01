@@ -78,27 +78,27 @@ require '../navbar.php';
 
 		  <div class="mb-3">
 			<label class="form-label fw-semibold">Protein (g)</label>
-			<input type="number" name="protein" class="form-control" placeholder="Enter protein">
+			<input type="number" step="0.01" min="0" max="100" name="protein" class="form-control" placeholder="Enter protein">
 		  </div>
 
 		  <div class="mb-3">
 			<label class="form-label fw-semibold">Carb (g)</label>
-			<input type="number" name="carb" class="form-control" placeholder="Enter carb">
+			<input type="number" step="0.01" min="0" max="100" name="carb" class="form-control" placeholder="Enter carb">
 		  </div>
 
 		  <div class="mb-3">
 			<label class="form-label fw-semibold">Fat (g)</label>
-			<input type="number" name="fat" class="form-control" placeholder="Enter fat">
+			<input type="number" step="0.01" min="0" max="100" name="fat" class="form-control" placeholder="Enter fat">
 		  </div>
 		  
 		  <div class="mb-3">
 			<label class="form-label fw-semibold">Fibre (g)</label>
-			<input type="number" name="fibre" class="form-control" placeholder="Enter fibre">
+			<input type="number" step="0.01" min="0" max="100" name="fibre" class="form-control" placeholder="Enter fibre">
 		  </div>
 
 		  <div class="mb-3">
 			<label class="form-label fw-semibold">Sugar (g)</label>
-			<input type="number" name="sugar" class="form-control" placeholder="Enter sugar">
+			<input type="number" step="0.01" min="0" max="100" name="sugar" class="form-control" placeholder="Enter sugar">
 		  </div>	  
 		</div>
 
