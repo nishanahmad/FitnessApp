@@ -180,4 +180,4 @@ if(isset($_SESSION["user_name"]))
 <?php
 }
 else
-	header("Location:sessions/loginPage.php");																													?>
+	header("Location:../sessions/loginPage.php");																													?>
