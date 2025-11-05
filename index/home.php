@@ -6,15 +6,25 @@ if(isset($_SESSION["user_name"]))
 	require '../connect.php';
 	require '../navbar.php';
 	
+	$date = date("Y-m-d");
 	$totalCalories = 0;
-	$meals = mysqli_query($con, "SELECT * FROM meals WHERE date = CURDATE()") or die(mysqli_error($con));	
+	
+	$mealDetailsMap = array();
+	
+	$meals = mysqli_query($con, "SELECT * FROM meals WHERE date = '$date'") or die(mysqli_error($con));	
 	foreach($meals as $meal)
 	{
 		$itemId = $meal['item'];
 		$itemSql = mysqli_query($con, "SELECT * FROM items WHERE id = '$itemId'") or die(mysqli_error($con));	
 		$item = mysqli_fetch_array($itemSql, MYSQLI_ASSOC);
-		$totalCalories = $item['calories'] * $meal['qty']/ $item['qty'];
-	}												?>
+		
+		$mealCalories = $item['calories'] * $meal['qty']/ $item['qty'];
+		$totalCalories = $totalCalories + $mealCalories;
+		
+		$mealDetailsMap[$meal['meal_type']] = $item['name'].' '.$mealCalories;
+	}
+	var_dump($mealDetailsMap);	
+																																								?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,7 +115,7 @@ if(isset($_SESSION["user_name"]))
     <div class="card-summary mb-3">
       <div class="row">
         <div class="col">
-          <div class="big-number"><?php echo $totalCalories;?>/1800</div>
+          <div class="big-number"><?php echo $totalCalories;?>/2000</div>
         </div>
       </div>
     </div>
@@ -145,7 +155,7 @@ if(isset($_SESSION["user_name"]))
 	  <div class="d-flex align-items-center">
 		<div class="meal-icon"><i class="bi bi-cup-hot"></i></div>
 		<div class="ms-2">
-		  <div class="fw-bold">Breakfast</div>
+		  <div class="fw-bold">Breakfast</div><>
 		  <small class="text-muted">450 - 550 kcal</small>
 		</div>
 	  </div>
