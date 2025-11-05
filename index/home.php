@@ -111,20 +111,33 @@ if(isset($_SESSION["user_name"]))
     </div>
 
     <!-- Macros -->
-    <div class="macro-card mb-3">
-      <div class="mb-2">Protein</div>
-      <div class="progress mb-2">
-        <div class="progress-bar bg-info" style="width: 33%"></div>
-      </div>
-      <div class="mb-2">Carbs</div>
-      <div class="progress mb-2">
-        <div class="progress-bar bg-warning" style="width: 50%"></div>
-      </div>
-      <div class="mb-2">Fats</div>
-      <div class="progress">
-        <div class="progress-bar bg-primary" style="width: 15%"></div>
-      </div>
-    </div>
+	<div class="macro-card mb-3">
+
+	  <div class="d-flex justify-content-between mb-1">
+		<span>Protein</span>
+		<span class="fw-semibold text-muted">33/100</span>
+	  </div>
+	  <div class="progress mb-3">
+		<div class="progress-bar bg-info" style="width: 33%"></div>
+	  </div>
+
+	  <div class="d-flex justify-content-between mb-1">
+		<span>Fibre</span>
+		<span class="fw-semibold text-muted">10/30</span>
+	  </div>
+	  <div class="progress mb-3">
+		<div class="progress-bar bg-warning" style="width: 50%"></div>
+	  </div>
+
+	  <div class="d-flex justify-content-between mb-1">
+		<span>Sugar</span>
+		<span class="fw-semibold text-muted">10/30</span>
+	  </div>
+	  <div class="progress">
+		<div class="progress-bar bg-primary" style="width: 15%"></div>
+	  </div>
+
+	</div>
 
     <!-- Meals -->
     <h6 class="fw-bold mb-3 text-center">Today</h6>
