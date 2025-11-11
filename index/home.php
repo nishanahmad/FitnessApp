@@ -10,6 +10,10 @@ if(isset($_SESSION["user_name"]))
 	$totalCalories = 0;
 	
 	$mealDetailsMap = array();
+	$mealDetailsMap['Breakfast'] = array();
+	$mealDetailsMap['Lunch'] = array();
+	$mealDetailsMap['Snack'] = array();
+	$mealDetailsMap['Dinner'] = array();
 	
 	$meals = mysqli_query($con, "SELECT * FROM meals WHERE date = '$date'") or die(mysqli_error($con));	
 	foreach($meals as $meal)
@@ -21,7 +25,7 @@ if(isset($_SESSION["user_name"]))
 		$mealCalories = $item['calories'] * $meal['qty']/ $item['qty'];
 		$totalCalories = $totalCalories + $mealCalories;
 		
-		$mealDetailsMap[$meal['meal_type']] = $item['name'].' '.$mealCalories;
+		$mealDetailsMap[$meal['meal_type']][] = $item['name'].' '.$mealCalories;
 	}
 	var_dump($mealDetailsMap);	
 																																								?>
@@ -155,8 +159,11 @@ if(isset($_SESSION["user_name"]))
 	  <div class="d-flex align-items-center">
 		<div class="meal-icon"><i class="bi bi-cup-hot"></i></div>
 		<div class="ms-2">
-		  <div class="fw-bold">Breakfast</div><>
-		  <small class="text-muted">450 - 550 kcal</small>
+		  <div class="fw-bold">Breakfast</div><?php
+		  foreach($mealDetailsMap['Breakfast'] as $index => $detail)
+		  {																		?>
+				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
+		  }																		?>
 		</div>
 	  </div>
 	  <div><i class="bi bi-plus-circle"></i></div>
@@ -165,8 +172,11 @@ if(isset($_SESSION["user_name"]))
       <div class="d-flex align-items-center">
         <div class="meal-icon"><i class="bi bi-egg"></i></div>
         <div class="ms-2">
-          <div class="fw-bold">Lunch</div>
-          <small class="text-muted">650 - 750 kcal</small>
+          <div class="fw-bold">Lunch</div><?php
+		  foreach($mealDetailsMap['Lunch'] as $index => $detail)
+		  {																		?>
+				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
+		  }																		?>
         </div>
       </div>
       <div><i class="bi bi-plus-circle"></i></div>
@@ -176,8 +186,11 @@ if(isset($_SESSION["user_name"]))
       <div class="d-flex align-items-center">
         <div class="meal-icon"><i class="bi bi-cookie"></i></div>
         <div class="ms-2">
-          <div class="fw-bold">Snack</div>
-          <small class="text-muted">100 kcal</small>
+          <div class="fw-bold">Snack</div><?php
+		  foreach($mealDetailsMap['Snack'] as $index => $detail)
+		  {																		?>
+				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
+		  }																		?>
         </div>
       </div>
       <div><i class="bi bi-plus-circle"></i></div>
@@ -186,8 +199,11 @@ if(isset($_SESSION["user_name"]))
       <div class="d-flex align-items-center">
         <div class="meal-icon"><i class="bi bi-fork-knife"></i></div>
         <div class="ms-2">
-          <div class="fw-bold">Dinner</div>
-          <small class="text-muted">400 kcal</small>
+          <div class="fw-bold">Dinner</div><?php
+		  foreach($mealDetailsMap['Dinner'] as $index => $detail)
+		  {																		?>
+				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
+		  }																		?>
         </div>
       </div>
       <div><i class="bi bi-plus-circle"></i></div>

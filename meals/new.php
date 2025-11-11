@@ -75,7 +75,7 @@ $items = mysqli_query($con, "SELECT * FROM items") or die(mysqli_error($con));
 
 		  <div class="mb-3">
 			<label class="form-label fw-semibold">Qty (g)</label>
-			<input type="number" step="0.01" min="0" max="100" name="qty" class="form-control" placeholder="Enter qty">
+			<input type="number" step="0.01" min="0" max="1000" name="qty" class="form-control" placeholder="Enter qty">
 		  </div>
 		</div>
 		<!-- Live Preview -->
