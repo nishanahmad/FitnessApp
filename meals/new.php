@@ -2,7 +2,8 @@
 require '../connect.php';
 require '../navbar.php';
 
-$items = mysqli_query($con, "SELECT * FROM items") or die(mysqli_error($con));		
+$items = mysqli_query($con, "SELECT * FROM items ORDER BY name") or die(mysqli_error($con));	
+$mealType = $_GET['meal'];	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,10 +56,10 @@ $items = mysqli_query($con, "SELECT * FROM items") or die(mysqli_error($con));
 		  <div class="mb-3">
 			<label class="form-label fw-semibold">Meal Type</label>
 			<select name="type" class="form-select">
-			  <option selected>Breakfast</option>
-			  <option>Lunch</option>
-			  <option>Dinner</option>
-			  <option>Snack</option>
+			  <option value="Breakfast" <?php if($mealType == 'breakfast') echo 'selected'?>>Breakfast</option>
+			  <option value="Lunch" <?php if($mealType == 'lunch') echo 'selected'?>>Lunch</option>
+			  <option value="Snack" <?php if($mealType == 'snack') echo 'selected'?>>Snack</option>
+			  <option value="Dinner" <?php if($mealType == 'dinner') echo 'selected'?>>Dinner</option>
 			</select>
 		  </div>
 

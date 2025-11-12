@@ -7,7 +7,10 @@ if(isset($_SESSION["user_name"]))
 	require '../navbar.php';
 	
 	$date = date("Y-m-d");
-	$totalCalories = 0;
+	$calories = 0;
+	$protein = 0;
+	$fibre = 0;
+	$sugar = 0;
 	
 	$mealDetailsMap = array();
 	$mealDetailsMap['Breakfast'] = array();
@@ -23,11 +26,23 @@ if(isset($_SESSION["user_name"]))
 		$item = mysqli_fetch_array($itemSql, MYSQLI_ASSOC);
 		
 		$mealCalories = $item['calories'] * $meal['qty']/ $item['qty'];
-		$totalCalories = $totalCalories + $mealCalories;
+		$calories = $calories + $mealCalories;
+		
+		$mealProtein = $item['protein'] * $meal['qty']/ $item['qty'];
+		$protein = $protein + $mealProtein;
+		
+		$mealFibre = $item['fibre'] * $meal['qty']/ $item['qty'];
+		$fibre = $fibre + $mealFibre;
+
+		$mealSugar = $item['sugar'] * $meal['qty']/ $item['qty'];
+		$sugar = $sugar + $mealSugar;		
 		
 		$mealDetailsMap[$meal['meal_type']][] = $item['name'].' '.$mealCalories;
 	}
-	var_dump($mealDetailsMap);	
+	$calories = round($calories,0);
+	$protein = round($protein,1);
+	$fibre = round($fibre,1);
+	$sugar = round($sugar,1);
 																																								?>
 <!DOCTYPE html>
 <html lang="en">
@@ -119,7 +134,7 @@ if(isset($_SESSION["user_name"]))
     <div class="card-summary mb-3">
       <div class="row">
         <div class="col">
-          <div class="big-number"><?php echo $totalCalories;?>/2000</div>
+          <div class="big-number"><?php echo $calories;?>/2000</div>
         </div>
       </div>
     </div>
@@ -129,7 +144,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Protein</span>
-		<span class="fw-semibold text-muted">33/100</span>
+		<span class="fw-semibold text-muted"><?php echo $protein;?>/100</span>
 	  </div>
 	  <div class="progress mb-3">
 		<div class="progress-bar bg-info" style="width: 33%"></div>
@@ -137,7 +152,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Fibre</span>
-		<span class="fw-semibold text-muted">10/30</span>
+		<span class="fw-semibold text-muted"><?php echo $fibre;?>/30</span>
 	  </div>
 	  <div class="progress mb-3">
 		<div class="progress-bar bg-warning" style="width: 50%"></div>
@@ -145,7 +160,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Sugar</span>
-		<span class="fw-semibold text-muted">10/30</span>
+		<span class="fw-semibold text-muted"><?php echo $sugar;?>/30</span>
 	  </div>
 	  <div class="progress">
 		<div class="progress-bar bg-primary" style="width: 15%"></div>
@@ -168,7 +183,7 @@ if(isset($_SESSION["user_name"]))
 	  </div>
 	  <div><i class="bi bi-plus-circle"></i></div>
 	</div>
-    <div class="meal-card">
+    <div class="meal-card" onclick="lunch()">
       <div class="d-flex align-items-center">
         <div class="meal-icon"><i class="bi bi-egg"></i></div>
         <div class="ms-2">
@@ -182,7 +197,7 @@ if(isset($_SESSION["user_name"]))
       <div><i class="bi bi-plus-circle"></i></div>
     </div>
 
-    <div class="meal-card">
+    <div class="meal-card" onclick="snack()">
       <div class="d-flex align-items-center">
         <div class="meal-icon"><i class="bi bi-cookie"></i></div>
         <div class="ms-2">
@@ -195,7 +210,7 @@ if(isset($_SESSION["user_name"]))
       </div>
       <div><i class="bi bi-plus-circle"></i></div>
     </div>
-    <div class="meal-card">
+    <div class="meal-card" onclick="dinner()">
       <div class="d-flex align-items-center">
         <div class="meal-icon"><i class="bi bi-fork-knife"></i></div>
         <div class="ms-2">
@@ -215,6 +230,18 @@ if(isset($_SESSION["user_name"]))
 function breakfast()
 {
     window.location = "../meals/new.php?meal=breakfast";
+}
+function lunch()
+{
+    window.location = "../meals/new.php?meal=lunch";
+}
+function snack()
+{
+    window.location = "../meals/new.php?meal=snack";
+}
+function dinner()
+{
+    window.location = "../meals/new.php?meal=dinner";
 }
 
 </script>

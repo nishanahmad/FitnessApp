@@ -13,13 +13,7 @@ if(count($_POST)>0)
 		$user  = mysqli_fetch_array($result, MYSQLI_ASSOC);
 		$_SESSION['user_id'] = $user['user_id'];
 		$_SESSION['user_name'] = $user['user_name'];
-		$_SESSION['role'] = $user['role'];
-		if($user['role'] == 'driver') 
-			$_SESSION['sheet_only'] = 1;
-		else	
-			$_SESSION['sheet_only'] = 0;
 		
-
 		header("Location:../index.php");
 	}
 	else 
