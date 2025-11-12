@@ -79,7 +79,7 @@ $mealType = $_GET['meal'];
 			<input type="number" step="0.01" min="0" max="1000" name="qty" class="form-control" placeholder="Enter qty">
 		  </div>
 		</div>
-		<!-- Live Preview -->
+		<!-- Live Preview 
 		<div class="preview-card mb-4">
 		  <h6 class="fw-semibold">Meal Preview</h6>
 		  <p class="mb-1">Calories: <span class="fw-bold">0</span> kcal</p>
@@ -89,6 +89,7 @@ $mealType = $_GET['meal'];
 		  <p class="mb-1">Carbs: <span class="fw-bold">0</span> g</p>
 		  <p class="mb-0">Fats: <span class="fw-bold">0</span> g</p>
 		</div>
+		-->
 
 		<!-- Save Button -->
 		<button type="submit" class="btn-cta">Save Meal</button>

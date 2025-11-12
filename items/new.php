@@ -60,16 +60,16 @@ require '../navbar.php';
 			<label class="form-label fw-semibold">Brand</label>
 			<input type="text" name="brand" class="form-control" placeholder="Enter brand">
 		  </div>	  
-		  
-		  <div class="mb-3">
-			<label class="form-label fw-semibold">Unit</label>
-			<input type="text" name="unit" required class="form-control" placeholder="Enter unit">
-		  </div>	  	  
 
 		  <div class="mb-3">
 			<label class="form-label fw-semibold">Qty</label>
 			<input type="number" name="qty" required class="form-control" placeholder="Enter qty">
 		  </div>
+		  
+		  <div class="mb-3">
+			<label class="form-label fw-semibold">Unit</label>
+			<input type="text" name="unit" required class="form-control" placeholder="Enter unit">
+		  </div>	  	  
 		  
 		  <div class="mb-3">
 			<label class="form-label fw-semibold">Calories (kcal)</label>
