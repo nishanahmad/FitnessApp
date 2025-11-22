@@ -6,7 +6,15 @@ if(isset($_SESSION["user_name"]))
 	require '../connect.php';
 	require '../navbar.php';
 	
-	$date = date("Y-m-d");
+	if(isset($_GET['date']))
+		$date = date("Y-m-d",strtotime($_GET['date']));
+	else
+		$date = date("Y-m-d");
+
+	$todayFlag = false;
+	if($date == date("Y-m-d"))
+		$todayFlag = true;
+
 	$calories = 0;
 	$protein = 0;
 	$fibre = 0;
@@ -43,13 +51,21 @@ if(isset($_SESSION["user_name"]))
 	$protein = round($protein,1);
 	$fibre = round($fibre,1);
 	$sugar = round($sugar,1);
+	
+	$targetMap = array();
+	$targets = mysqli_query($con, "SELECT * FROM daily_target") or die(mysqli_error($con));	
+	foreach($targets as $target)
+	{
+		$targetMap[$target['name']] = $target['target'];
+	}
+	
 																																								?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calorie Friend</title>
+  <title>Calorie Tracker</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -124,7 +140,7 @@ if(isset($_SESSION["user_name"]))
   <div class="container-custom">
     <!-- Header -->
     <div class="header">
-      <div class="header-title"><i class="bi bi-egg-fried"></i> Calorie Friend</div>
+      <div class="header-title"><i class="bi bi-egg-fried"></i> Calorie Tracker</div>
       <div class="profile-img">
         <img src="https://via.placeholder.com/40" alt="Profile">
       </div>
@@ -134,7 +150,7 @@ if(isset($_SESSION["user_name"]))
     <div class="card-summary mb-3">
       <div class="row">
         <div class="col">
-          <div class="big-number"><?php echo $calories;?>/2000</div>
+          <div class="big-number"><?php echo $calories;?>/<?php echo $targetMap['calories'];?></div>
         </div>
       </div>
     </div>
@@ -144,7 +160,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Protein</span>
-		<span class="fw-semibold text-muted"><?php echo $protein;?>/100</span>
+		<span class="fw-semibold text-muted"><?php echo $protein;?>/<?php echo $targetMap['protein'];?></span>
 	  </div>
 	  <div class="progress mb-3">
 		<div class="progress-bar bg-info" style="width: 33%"></div>
@@ -152,7 +168,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Fibre</span>
-		<span class="fw-semibold text-muted"><?php echo $fibre;?>/30</span>
+		<span class="fw-semibold text-muted"><?php echo $fibre;?>/<?php echo $targetMap['fibre'];?></span>
 	  </div>
 	  <div class="progress mb-3">
 		<div class="progress-bar bg-warning" style="width: 50%"></div>
@@ -160,7 +176,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Sugar</span>
-		<span class="fw-semibold text-muted"><?php echo $sugar;?>/30</span>
+		<span class="fw-semibold text-muted"><?php echo $sugar;?>/<?php echo $targetMap['sugar'];?></span>
 	  </div>
 	  <div class="progress">
 		<div class="progress-bar bg-primary" style="width: 15%"></div>

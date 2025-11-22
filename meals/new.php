@@ -75,7 +75,7 @@ $mealType = $_GET['meal'];
 		  </div>
 
 		  <div class="mb-3">
-			<label class="form-label fw-semibold">Qty (g)</label>
+			<label class="form-label fw-semibold">Qty</label>
 			<input type="number" step="0.01" min="0" max="1000" name="qty" class="form-control" placeholder="Enter qty">
 		  </div>
 		</div>
