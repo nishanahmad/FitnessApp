@@ -5,6 +5,8 @@
 		$flag = 'home';		
 	if (strpos($url, 'items') !== false)
 		$flag = 'items';	
+	if (strpos($url, 'weight') !== false)
+		$flag = 'weight';		
 ?>  
   <!-- Bottom Navigation -->
   <style>
@@ -44,6 +46,6 @@
   <div class="bottom-nav">
     <a <?php if($flag == 'home') echo 'href="#"'.' class="active"'; else echo 'href="../index.php"'?>><i class="bi bi-house-door-fill"></i>Home</a>
     <a <?php if($flag == 'items') echo 'href="#"'.' class="active"'; else echo 'href="../items/new.php"'?>><i class="bi bi-plus-circle"></i>Item</a>
-    <a href="#"><i class="bi bi-book"></i>Recipes</a>
+    <a <?php if($flag == 'weight') echo 'href="#"'.' class="active"'; else echo 'href="../weight/new.php"'?>><i class="bi bi-fire"></i>Weight</a>
     <a href="#"><i class="bi bi-card-checklist"></i>Plans</a>
   </div>
