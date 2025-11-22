@@ -12,6 +12,9 @@ $mealType = $_GET['meal'];
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Add Meal</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>  
   <style>
     body {
       background-color: #fdf8f4;
@@ -65,7 +68,7 @@ $mealType = $_GET['meal'];
 
 		  <div class="mb-3">
 			<label class="form-label fw-semibold">Item</label>
-			<select name="item" class="form-select">
+			<select name="item" id="item" class="form-select">
 				<option value="">----- Select -----</option><?php
 				foreach($items as $item) 
 				{																																		?>
@@ -79,23 +82,15 @@ $mealType = $_GET['meal'];
 			<input type="number" step="0.01" min="0" max="1000" name="qty" class="form-control" placeholder="Enter qty">
 		  </div>
 		</div>
-		<!-- Live Preview 
-		<div class="preview-card mb-4">
-		  <h6 class="fw-semibold">Meal Preview</h6>
-		  <p class="mb-1">Calories: <span class="fw-bold">0</span> kcal</p>
-		  <p class="mb-1">Protein: <span class="fw-bold">0</span> g</p>
-		  <p class="mb-1">Sugar: <span class="fw-bold">0</span> g</p>
-		  <p class="mb-1">Fibre: <span class="fw-bold">0</span> g</p>
-		  <p class="mb-1">Carbs: <span class="fw-bold">0</span> g</p>
-		  <p class="mb-0">Fats: <span class="fw-bold">0</span> g</p>
-		</div>
-		-->
-
-		<!-- Save Button -->
 		<button type="submit" class="btn-cta">Save Meal</button>
 	</form>	
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+	$(document).ready(function() {
+		$('#item').select2();
+	});  
+  </script>
 </body>
 </html>
