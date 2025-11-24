@@ -4,6 +4,9 @@ error_reporting(E_ALL);
 
 require '../connect.php';
 
+ini_set('session.gc_maxlifetime', 14400);
+ini_set('session.cookie_lifetime', 14400);
+
 session_start();
 if(isset($_SESSION["user_name"]))
 {
