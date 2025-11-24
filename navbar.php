@@ -3,8 +3,10 @@
 	$url = $_SERVER['REQUEST_URI'];
 	if (strpos($url, 'home') !== false)
 		$flag = 'home';		
+	if (strpos($url, 'meals') !== false)
+		$flag = 'meals';		
 	if (strpos($url, 'items') !== false)
-		$flag = 'items';	
+		$flag = 'items';		
 	if (strpos($url, 'weight') !== false)
 		$flag = 'weight';		
 ?>  
@@ -44,7 +46,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">  
   </head>
   <div class="bottom-nav">
-    <a <?php if($flag == 'home') echo 'href="#"'.' class="active"'; else echo 'href="../index.php"'?>><i class="bi bi-house-door-fill"></i>Home</a>
+    <a <?php if($flag == 'home') echo 'href="#"'.' class="active"'; else if($flag == 'meals') echo 'href="../index.php"'.' class="active"'; else echo 'href="../index.php"'?>><i class="bi bi-house-door-fill"></i>Home</a>
     <a <?php if($flag == 'items') echo 'href="#"'.' class="active"'; else echo 'href="../items/new.php"'?>><i class="bi bi-plus-circle"></i>Item</a>
     <a <?php if($flag == 'weight') echo 'href="#"'.' class="active"'; else echo 'href="../weight/new.php"'?>><i class="bi bi-fire"></i>Weight</a>
     <a href="#"><i class="bi bi-card-checklist"></i>Plans</a>
