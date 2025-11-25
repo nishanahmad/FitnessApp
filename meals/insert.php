@@ -10,9 +10,8 @@ ini_set('session.cookie_lifetime', 14400);
 session_start();
 if(isset($_SESSION["user_name"]))
 {
-	//$date = $_POST['date'];
-	//$sqlDate = date("Y-m-d", strtotime($date));
-	$sqlDate = date("Y-m-d");
+	$date = $_POST['date'];
+	$sqlDate = date("Y-m-d", strtotime($date));
 	$type = $_POST['type'];
 	$item = $_POST['item'];
 	$qty = $_POST['qty'];

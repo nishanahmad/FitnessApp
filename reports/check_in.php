@@ -60,7 +60,6 @@ if(isset($_SESSION["user_name"]))
 	foreach($targets as $target)
 	{
 		$targetMap[$target['name']] = $target['target'];
-		$targetTypeMap[$target['name']] = $target['target'];
 	}
 	
 																																								?>
@@ -69,7 +68,7 @@ if(isset($_SESSION["user_name"]))
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fitness App</title>
+  <title>Calorie Tracker</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;

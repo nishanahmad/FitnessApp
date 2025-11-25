@@ -62,6 +62,12 @@ if(isset($_SESSION["user_name"]))
 		<!-- Meal Form -->
 		<form name="newMealForm" id="newMealForm" method="post" action="insert.php">
 			<div class="card-custom mb-4">
+
+			  <div class="mb-3">
+				<label class="form-label fw-semibold">Date</label>
+				<input type="text" id="date" class="form-control datepicker" name="date" required value="<?php echo date('d-m-Y'); ?>" autocomplete="off"/>
+			  </div>
+			  
 			  <div class="mb-3">
 				<label class="form-label fw-semibold">Meal Type</label>
 				<select name="type" class="form-select">
