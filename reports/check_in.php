@@ -9,27 +9,23 @@ if(isset($_SESSION["user_name"]))
 	require '../connect.php';
 	require '../navbar.php';
 	
-	if(isset($_GET['date']))
-		$date = date("Y-m-d",strtotime($_GET['date']));
-	else
-		$date = date("Y-m-d");
 
-	$todayFlag = false;
-	if($date == date("Y-m-d"))
-		$todayFlag = true;
+	$fromDate = date('Y-m-d', strtotime("last Saturday"));
+	$toDate = date("Y-m-d");
+
+	$start = new DateTime($fromDate);
+	$end   = new DateTime($toDate);
+
+	$diff = $start->diff($end);
+
+	$days = $diff->days + 1;
 
 	$calories = 0;
 	$protein = 0;
 	$fibre = 0;
 	$sugar = 0;
-	
-	$mealDetailsMap = array();
-	$mealDetailsMap['Breakfast'] = array();
-	$mealDetailsMap['Lunch'] = array();
-	$mealDetailsMap['Snack'] = array();
-	$mealDetailsMap['Dinner'] = array();
-	
-	$meals = mysqli_query($con, "SELECT * FROM meals WHERE date = '$date'") or die(mysqli_error($con));	
+		
+	$meals = mysqli_query($con, "SELECT * FROM meals WHERE date >= '$fromDate' AND date <= '$toDate'") or die(mysqli_error($con));	
 	foreach($meals as $meal)
 	{
 		$itemId = $meal['item'];
@@ -48,12 +44,11 @@ if(isset($_SESSION["user_name"]))
 		$mealSugar = $item['sugar'] * $meal['qty']/ $item['qty'];
 		$sugar = $sugar + $mealSugar;		
 		
-		$mealDetailsMap[$meal['meal_type']][] = $item['name'].' '.$mealCalories;
 	}
-	$calories = round($calories,0);
-	$protein = round($protein,1);
-	$fibre = round($fibre,1);
-	$sugar = round($sugar,1);
+	$calories = round($calories/$days,0);
+	$protein = round($protein/$days,0);
+	$fibre = round($fibre/$days,0);
+	$sugar = round($sugar/$days,0);
 	
 	$targetMap = array();
 	$targets = mysqli_query($con, "SELECT * FROM daily_target") or die(mysqli_error($con));	
@@ -184,86 +179,8 @@ if(isset($_SESSION["user_name"]))
 	  <div class="progress">
 		<div class="progress-bar bg-primary" style="width: 15%"></div>
 	  </div>
-
 	</div>
 
-    <!-- Meals -->
-    <h6 class="fw-bold mb-3 text-center">Today</h6>
-	<div class="meal-card" onclick="breakfast()">
-	  <div class="d-flex align-items-center">
-		<div class="meal-icon"><i class="bi bi-cup-hot"></i></div>
-		<div class="ms-2">
-		  <div class="fw-bold">Breakfast</div><?php
-		  foreach($mealDetailsMap['Breakfast'] as $index => $detail)
-		  {																		?>
-				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
-		  }																		?>
-		</div>
-	  </div>
-	  <div><i class="bi bi-plus-circle"></i></div>
-	</div>
-    <div class="meal-card" onclick="lunch()">
-      <div class="d-flex align-items-center">
-        <div class="meal-icon"><i class="bi bi-egg"></i></div>
-        <div class="ms-2">
-          <div class="fw-bold">Lunch</div><?php
-		  foreach($mealDetailsMap['Lunch'] as $index => $detail)
-		  {																		?>
-				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
-		  }																		?>
-        </div>
-      </div>
-      <div><i class="bi bi-plus-circle"></i></div>
-    </div>
-
-    <div class="meal-card" onclick="snack()">
-      <div class="d-flex align-items-center">
-        <div class="meal-icon"><i class="bi bi-cookie"></i></div>
-        <div class="ms-2">
-          <div class="fw-bold">Snack</div><?php
-		  foreach($mealDetailsMap['Snack'] as $index => $detail)
-		  {																		?>
-				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
-		  }																		?>
-        </div>
-      </div>
-      <div><i class="bi bi-plus-circle"></i></div>
-    </div>
-    <div class="meal-card" onclick="dinner()">
-      <div class="d-flex align-items-center">
-        <div class="meal-icon"><i class="bi bi-fork-knife"></i></div>
-        <div class="ms-2">
-          <div class="fw-bold">Dinner</div><?php
-		  foreach($mealDetailsMap['Dinner'] as $index => $detail)
-		  {																		?>
-				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
-		  }																		?>
-        </div>
-      </div>
-      <div><i class="bi bi-plus-circle"></i></div>
-    </div>
-  </div>
-
-
-<script>
-function breakfast()
-{
-    window.location = "../meals/new.php?meal=breakfast";
-}
-function lunch()
-{
-    window.location = "../meals/new.php?meal=lunch";
-}
-function snack()
-{
-    window.location = "../meals/new.php?meal=snack";
-}
-function dinner()
-{
-    window.location = "../meals/new.php?meal=dinner";
-}
-
-</script>
 </body>
 </html>
 
