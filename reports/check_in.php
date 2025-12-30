@@ -9,8 +9,8 @@ if(isset($_SESSION["user_name"]))
 	require '../connect.php';
 	require '../navbar.php';
 	
-
-	$fromDate = date('Y-m-d', strtotime("last Saturday"));
+	
+	$fromDate = date('Y-m-d', strtotime("last Monday"));
 	$toDate = date("Y-m-d");
 
 	$start = new DateTime($fromDate);

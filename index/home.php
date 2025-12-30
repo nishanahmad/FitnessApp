@@ -59,10 +59,21 @@ if(isset($_SESSION["user_name"]))
 	$targets = mysqli_query($con, "SELECT * FROM daily_target") or die(mysqli_error($con));	
 	foreach($targets as $target)
 	{
-		$targetMap[$target['name']] = $target['target'];
-		$targetTypeMap[$target['name']] = $target['target'];
+		$targetMap[$target['name']]['target'] = $target['target'];
+		$targetTypeMap[$target['name']]['target'] = $target['target'];
+		$targetMap[$target['name']]['type'] = $target['target_type'];
+		$targetTypeMap[$target['name']]['type'] = $target['target_type'];	
 	}
-	
+	$prorataMap = array();
+
+	// This uses variable variable. Need to remove once macros consumption is moved to array and macro names are not used as variables
+	foreach($targetMap as $name => $detail)
+		$prorataMap[$name] = ${$name}/$targetMap[$name]['target']*100;
+
+	foreach($prorataMap as $name => $detail)
+	{
+		
+	}
 																																								?>
 <!DOCTYPE html>
 <html lang="en">
@@ -154,7 +165,7 @@ if(isset($_SESSION["user_name"]))
     <div class="card-summary mb-3">
       <div class="row">
         <div class="col">
-          <div class="big-number"><?php echo $calories;?>/<?php echo $targetMap['calories'];?></div>
+          <div class="big-number"><?php echo $calories;?>/<?php echo $targetMap['calories']['target'];?></div>
         </div>
       </div>
     </div>
@@ -164,7 +175,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Protein</span>
-		<span class="fw-semibold text-muted"><?php echo $protein;?>/<?php echo $targetMap['protein'];?></span>
+		<span class="fw-semibold text-muted"><?php echo $protein;?>/<?php echo $targetMap['protein']['target'];?></span>
 	  </div>
 	  <div class="progress mb-3">
 		<div class="progress-bar bg-info" style="width: 33%"></div>
@@ -172,7 +183,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Fibre</span>
-		<span class="fw-semibold text-muted"><?php echo $fibre;?>/<?php echo $targetMap['fibre'];?></span>
+		<span class="fw-semibold text-muted"><?php echo $fibre;?>/<?php echo $targetMap['fibre']['target'];?></span>
 	  </div>
 	  <div class="progress mb-3">
 		<div class="progress-bar bg-warning" style="width: 50%"></div>
@@ -180,7 +191,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Sugar</span>
-		<span class="fw-semibold text-muted"><?php echo $sugar;?>/<?php echo $targetMap['sugar'];?></span>
+		<span class="fw-semibold text-muted"><?php echo $sugar;?>/<?php echo $targetMap['sugar']['target'];?></span>
 	  </div>
 	  <div class="progress">
 		<div class="progress-bar bg-primary" style="width: 15%"></div>
