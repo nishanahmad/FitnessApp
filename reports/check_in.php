@@ -10,7 +10,11 @@ if(isset($_SESSION["user_name"]))
 	require '../navbar.php';
 	
 	
-	$fromDate = date('Y-m-d', strtotime("last Monday"));
+	if(date('N') != 1)
+		$fromDate = date('Y-m-d', strtotime("last Monday"));
+	else
+		$fromDate = date("Y-m-d");
+	
 	$toDate = date("Y-m-d");
 
 	$start = new DateTime($fromDate);
