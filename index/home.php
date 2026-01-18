@@ -18,10 +18,10 @@ if(isset($_SESSION["user_name"]))
 	if($date == date("Y-m-d"))
 		$todayFlag = true;
 
-	$calories = 0;
-	$protein = 0;
-	$fibre = 0;
-	$sugar = 0;
+	$Calories = 0;
+	$Protein = 0;
+	$Fibre = 0;
+	$Sugar = 0;
 	
 	$mealDetailsMap = array();
 	$mealDetailsMap['Breakfast'] = array();
@@ -37,23 +37,23 @@ if(isset($_SESSION["user_name"]))
 		$item = mysqli_fetch_array($itemSql, MYSQLI_ASSOC);
 		
 		$mealCalories = $item['calories'] * $meal['qty']/ $item['qty'];
-		$calories = $calories + $mealCalories;
+		$Calories = $Calories + $mealCalories;
 		
 		$mealProtein = $item['protein'] * $meal['qty']/ $item['qty'];
-		$protein = $protein + $mealProtein;
+		$Protein = $Protein + $mealProtein;
 		
 		$mealFibre = $item['fibre'] * $meal['qty']/ $item['qty'];
-		$fibre = $fibre + $mealFibre;
+		$Fibre = $Fibre + $mealFibre;
 
 		$mealSugar = $item['sugar'] * $meal['qty']/ $item['qty'];
-		$sugar = $sugar + $mealSugar;		
+		$Sugar = $Sugar + $mealSugar;		
 		
-		$mealDetailsMap[$meal['meal_type']][] = $item['name'].' '.$mealCalories;
+		$mealDetailsMap[$meal['meal_type']][] = $item['name'].' '.round($mealCalories,0);
 	}
-	$calories = round($calories,0);
-	$protein = round($protein,1);
-	$fibre = round($fibre,1);
-	$sugar = round($sugar,1);
+	$Calories = round($Calories,0);
+	$Protein = round($Protein,1);
+	$Fibre = round($Fibre,1);
+	$Sugar = round($Sugar,1);
 	
 	$targetMap = array();
 	$targets = mysqli_query($con, "SELECT * FROM daily_target") or die(mysqli_error($con));	
@@ -64,17 +64,38 @@ if(isset($_SESSION["user_name"]))
 		$targetMap[$target['name']]['type'] = $target['target_type'];
 		$targetTypeMap[$target['name']]['type'] = $target['target_type'];	
 	}
+	
 	$prorataMap = array();
-
 	// This uses variable variable. Need to remove once macros consumption is moved to array and macro names are not used as variables
 	foreach($targetMap as $name => $detail)
-		$prorataMap[$name] = ${$name}/$targetMap[$name]['target']*100;
+		$prorataMap[$name] = round(${$name}/$targetMap[$name]['target']*100,0);
 
-	foreach($prorataMap as $name => $detail)
+	$colorClassMap = array();
+
+	$caloriePercentage = $prorataMap['Calories'];
+	foreach($prorataMap as $name => $percentage)
 	{
-		
+		if($targetMap[$name]['type'] == 'Achieve')
+		{
+			if($percentage >= $caloriePercentage)
+				$colorClassMap[$name] = 'bg-success';
+			else if($percentage >= $caloriePercentage * .9)
+				$colorClassMap[$name] = 'bg-warning';
+			else
+				$colorClassMap[$name] = 'bg-danger';
+		}
+		else if($targetMap[$name]['type'] == 'Restrict')
+		{
+			if($percentage < $caloriePercentage * 0.9)
+				$colorClassMap[$name] = 'bg-success';
+			else if($percentage <= $caloriePercentage)
+				$colorClassMap[$name] = 'bg-warning';
+			else
+				$colorClassMap[$name] = 'bg-danger';
+		}
 	}
-																																								?>
+	unset($colorClassMap['Calories']);																					?>
+		
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,39 +186,25 @@ if(isset($_SESSION["user_name"]))
     <div class="card-summary mb-3">
       <div class="row">
         <div class="col">
-          <div class="big-number"><?php echo $calories;?>/<?php echo $targetMap['calories']['target'];?></div>
+          <div class="big-number"><?php echo $Calories;?>/<?php echo $targetMap['Calories']['target'];?></div>
         </div>
       </div>
     </div>
 
     <!-- Macros -->
-	<div class="macro-card mb-3">
-
-	  <div class="d-flex justify-content-between mb-1">
-		<span>Protein</span>
-		<span class="fw-semibold text-muted"><?php echo $protein;?>/<?php echo $targetMap['protein']['target'];?></span>
-	  </div>
-	  <div class="progress mb-3">
-		<div class="progress-bar bg-info" style="width: 33%"></div>
-	  </div>
-
-	  <div class="d-flex justify-content-between mb-1">
-		<span>Fibre</span>
-		<span class="fw-semibold text-muted"><?php echo $fibre;?>/<?php echo $targetMap['fibre']['target'];?></span>
-	  </div>
-	  <div class="progress mb-3">
-		<div class="progress-bar bg-warning" style="width: 50%"></div>
-	  </div>
-
-	  <div class="d-flex justify-content-between mb-1">
-		<span>Sugar</span>
-		<span class="fw-semibold text-muted"><?php echo $sugar;?>/<?php echo $targetMap['sugar']['target'];?></span>
-	  </div>
-	  <div class="progress">
-		<div class="progress-bar bg-primary" style="width: 15%"></div>
-	  </div>
-
-	</div>
+	<div class="macro-card mb-3">																																			<?php
+	  foreach($prorataMap as $name => $percentage)
+	  {	  if($name != 'Calories')
+		  {																																									?>
+			  <div class="d-flex justify-content-between mb-1">
+				<span><?php echo $name;?></span>
+				<span class="fw-semibold text-muted"><?php echo ${$name};?>/<?php echo $targetMap[$name]['target'];?></span>
+			  </div>
+			  <div class="progress mb-3">
+				<div class="progress-bar <?php echo $colorClassMap[$name];?>" style="width: <?php echo $percentage;?>%"></div>
+			  </div>		  																																				<?php			  
+		  }
+	  }																																										?>
 
     <!-- Meals -->
     <h6 class="fw-bold mb-3 text-center">Today</h6>

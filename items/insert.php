@@ -10,6 +10,7 @@ ini_set('session.cookie_lifetime', 14400);
 session_start();
 if(isset($_SESSION["user_name"]))
 {
+	$user = $_SESSION["user_id"];
 	$name = $_POST['name'];
 	$brand = $_POST['brand'];
 	$unit = $_POST['unit'];
@@ -36,9 +37,9 @@ if(isset($_SESSION["user_name"]))
 	else
 		$sugar = 0;
 			
-	$sql="INSERT INTO items (name, brand, unit, qty, calories, protein, carb, fat, fibre, sugar)
+	$sql="INSERT INTO items (user, name, brand, unit, qty, calories, protein, carb, fat, fibre, sugar)
 		 VALUES
-		 ('$name', '$brand', '$unit', '$qty', '$calories', '$protein', '$carb', '$fat', '$fibre', '$sugar')";
+		 ('$user', '$name', '$brand', '$unit', '$qty', '$calories', '$protein', '$carb', '$fat', '$fibre', '$sugar')";
 
 	$result = mysqli_query($con, $sql) or die(mysqli_error($con));
 			
