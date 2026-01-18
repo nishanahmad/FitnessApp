@@ -229,7 +229,7 @@ if(isset($_SESSION["user_name"]))
           <div class="fw-bold">Lunch</div><?php
 		  foreach($mealDetailsMap['Lunch'] as $index => $detail)
 		  {																		?>
-				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
+				<small class="text-muted"><?php echo $detail;?></small><?php
 		  }																		?>
         </div>
       </div>
@@ -243,7 +243,7 @@ if(isset($_SESSION["user_name"]))
           <div class="fw-bold">Snack</div><?php
 		  foreach($mealDetailsMap['Snack'] as $index => $detail)
 		  {																		?>
-				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
+				<small class="text-muted"><?php echo $detail;?></small><?php
 		  }																		?>
         </div>
       </div>
@@ -256,7 +256,7 @@ if(isset($_SESSION["user_name"]))
           <div class="fw-bold">Dinner</div><?php
 		  foreach($mealDetailsMap['Dinner'] as $index => $detail)
 		  {																		?>
-				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
+				<small class="text-muted"><?php echo $detail;?></small><?php
 		  }																		?>
         </div>
       </div>
