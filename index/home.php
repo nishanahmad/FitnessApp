@@ -48,7 +48,7 @@ if(isset($_SESSION["user_name"]))
 		$mealSugar = $item['sugar'] * $meal['qty']/ $item['qty'];
 		$Sugar = $Sugar + $mealSugar;		
 		
-		$mealDetailsMap[$meal['meal_type']][] = $item['name'].' '.round($mealCalories,0);
+		$mealDetailsMap[$meal['meal_type']][] = $item['name'].' '.$meal['qty'].' '.$item['unit'].' <b>'.round($mealCalories,0).' kcal</b><br/>';
 	}
 	$Calories = round($Calories,0);
 	$Protein = round($Protein,1);
@@ -77,6 +77,7 @@ if(isset($_SESSION["user_name"]))
 	{
 		if($targetMap[$name]['type'] == 'Achieve')
 		{
+			echo $name.'<br/>';
 			if($percentage >= $caloriePercentage)
 				$colorClassMap[$name] = 'bg-success';
 			else if($percentage >= $caloriePercentage * .9)
@@ -215,7 +216,7 @@ if(isset($_SESSION["user_name"]))
 		  <div class="fw-bold">Breakfast</div><?php
 		  foreach($mealDetailsMap['Breakfast'] as $index => $detail)
 		  {																		?>
-				<small class="text-muted"><?php echo $detail. ' kcal<br/>';?></small><?php
+				<small class="text-muted"><?php echo $detail;?></small><?php
 		  }																		?>
 		</div>
 	  </div>

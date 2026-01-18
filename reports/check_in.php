@@ -24,10 +24,10 @@ if(isset($_SESSION["user_name"]))
 
 	$days = $diff->days + 1;
 
-	$calories = 0;
-	$protein = 0;
-	$fibre = 0;
-	$sugar = 0;
+	$Calories = 0;
+	$Protein = 0;
+	$Fibre = 0;
+	$Sugar = 0;
 		
 	$meals = mysqli_query($con, "SELECT * FROM meals WHERE date >= '$fromDate' AND date <= '$toDate'") or die(mysqli_error($con));	
 	foreach($meals as $meal)
@@ -37,22 +37,22 @@ if(isset($_SESSION["user_name"]))
 		$item = mysqli_fetch_array($itemSql, MYSQLI_ASSOC);
 		
 		$mealCalories = $item['calories'] * $meal['qty']/ $item['qty'];
-		$calories = $calories + $mealCalories;
+		$Calories = $Calories + $mealCalories;
 		
 		$mealProtein = $item['protein'] * $meal['qty']/ $item['qty'];
-		$protein = $protein + $mealProtein;
+		$Protein = $Protein + $mealProtein;
 		
 		$mealFibre = $item['fibre'] * $meal['qty']/ $item['qty'];
-		$fibre = $fibre + $mealFibre;
+		$Fibre = $Fibre + $mealFibre;
 
 		$mealSugar = $item['sugar'] * $meal['qty']/ $item['qty'];
-		$sugar = $sugar + $mealSugar;		
+		$Sugar = $Sugar + $mealSugar;		
 		
 	}
-	$calories = round($calories/$days,0);
-	$protein = round($protein/$days,0);
-	$fibre = round($fibre/$days,0);
-	$sugar = round($sugar/$days,0);
+	$Calories = round($Calories/$days,0);
+	$Protein = round($Protein/$days,0);
+	$Fibre = round($Fibre/$days,0);
+	$Sugar = round($Sugar/$days,0);
 	
 	$targetMap = array();
 	$targets = mysqli_query($con, "SELECT * FROM daily_target") or die(mysqli_error($con));	
@@ -152,7 +152,7 @@ if(isset($_SESSION["user_name"]))
     <div class="card-summary mb-3">
       <div class="row">
         <div class="col">
-          <div class="big-number"><?php echo $calories;?>/<?php echo $targetMap['calories'];?></div>
+          <div class="big-number"><?php echo $Calories;?>/<?php echo $targetMap['Calories'];?></div>
         </div>
       </div>
     </div>
@@ -162,7 +162,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Protein</span>
-		<span class="fw-semibold text-muted"><?php echo $protein;?>/<?php echo $targetMap['protein'];?></span>
+		<span class="fw-semibold text-muted"><?php echo $Protein;?>/<?php echo $targetMap['Protein'];?></span>
 	  </div>
 	  <div class="progress mb-3">
 		<div class="progress-bar bg-info" style="width: 33%"></div>
@@ -170,7 +170,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Fibre</span>
-		<span class="fw-semibold text-muted"><?php echo $fibre;?>/<?php echo $targetMap['fibre'];?></span>
+		<span class="fw-semibold text-muted"><?php echo $Fibre;?>/<?php echo $targetMap['Fibre'];?></span>
 	  </div>
 	  <div class="progress mb-3">
 		<div class="progress-bar bg-warning" style="width: 50%"></div>
@@ -178,7 +178,7 @@ if(isset($_SESSION["user_name"]))
 
 	  <div class="d-flex justify-content-between mb-1">
 		<span>Sugar</span>
-		<span class="fw-semibold text-muted"><?php echo $sugar;?>/<?php echo $targetMap['sugar'];?></span>
+		<span class="fw-semibold text-muted"><?php echo $Sugar;?>/<?php echo $targetMap['Sugar'];?></span>
 	  </div>
 	  <div class="progress">
 		<div class="progress-bar bg-primary" style="width: 15%"></div>
