@@ -77,7 +77,6 @@ if(isset($_SESSION["user_name"]))
 	{
 		if($targetMap[$name]['type'] == 'Achieve')
 		{
-			echo $name.'<br/>';
 			if($percentage >= $caloriePercentage)
 				$colorClassMap[$name] = 'bg-success';
 			else if($percentage >= $caloriePercentage * .9)
