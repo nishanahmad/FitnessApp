@@ -71,9 +71,10 @@ if(isset($_SESSION["user_name"]))
 			  <div class="mb-3">
 				<label class="form-label fw-semibold">Meal Type</label>
 				<select name="type" class="form-select">
+				  <option value="Morning Snack" <?php if($mealType == 'm_snack') echo 'selected'?>>Morning Snack</option>
 				  <option value="Breakfast" <?php if($mealType == 'breakfast') echo 'selected'?>>Breakfast</option>
 				  <option value="Lunch" <?php if($mealType == 'lunch') echo 'selected'?>>Lunch</option>
-				  <option value="Snack" <?php if($mealType == 'snack') echo 'selected'?>>Snack</option>
+				  <option value="Evening Snack" <?php if($mealType == 'e_snack') echo 'selected'?>>Evening Snack</option>
 				  <option value="Dinner" <?php if($mealType == 'dinner') echo 'selected'?>>Dinner</option>
 				</select>
 			  </div>

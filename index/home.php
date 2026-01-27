@@ -24,9 +24,10 @@ if(isset($_SESSION["user_name"]))
 	$Sugar = 0;
 	
 	$mealDetailsMap = array();
+	$mealDetailsMap['Morning Snack'] = array();
 	$mealDetailsMap['Breakfast'] = array();
 	$mealDetailsMap['Lunch'] = array();
-	$mealDetailsMap['Snack'] = array();
+	$mealDetailsMap['Evening Snack'] = array();
 	$mealDetailsMap['Dinner'] = array();
 	
 	$meals = mysqli_query($con, "SELECT * FROM meals WHERE date = '$date'") or die(mysqli_error($con));	
@@ -208,6 +209,19 @@ if(isset($_SESSION["user_name"]))
 
     <!-- Meals -->
     <h6 class="fw-bold mb-3 text-center">Today</h6>
+    <div class="meal-card" onclick="m_snack()">
+      <div class="d-flex align-items-center">
+        <div class="meal-icon"><i class="bi bi-cookie"></i></div>
+        <div class="ms-2">
+          <div class="fw-bold">Morning Snack</div><?php
+		  foreach($mealDetailsMap['Morning Snack'] as $index => $detail)
+		  {																		?>
+				<small class="text-muted"><?php echo $detail;?></small><?php
+		  }																		?>
+        </div>
+      </div>
+      <div><i class="bi bi-plus-circle"></i></div>
+    </div>	
 	<div class="meal-card" onclick="breakfast()">
 	  <div class="d-flex align-items-center">
 		<div class="meal-icon"><i class="bi bi-cup-hot"></i></div>
@@ -235,12 +249,12 @@ if(isset($_SESSION["user_name"]))
       <div><i class="bi bi-plus-circle"></i></div>
     </div>
 
-    <div class="meal-card" onclick="snack()">
+    <div class="meal-card" onclick="e_snack()">
       <div class="d-flex align-items-center">
         <div class="meal-icon"><i class="bi bi-cookie"></i></div>
         <div class="ms-2">
-          <div class="fw-bold">Snack</div><?php
-		  foreach($mealDetailsMap['Snack'] as $index => $detail)
+          <div class="fw-bold">Evening Snack</div><?php
+		  foreach($mealDetailsMap['Evening Snack'] as $index => $detail)
 		  {																		?>
 				<small class="text-muted"><?php echo $detail;?></small><?php
 		  }																		?>
@@ -265,6 +279,10 @@ if(isset($_SESSION["user_name"]))
 
 
 <script>
+function m_snack()
+{
+    window.location = "../meals/new.php?meal=m_snack";
+}
 function breakfast()
 {
     window.location = "../meals/new.php?meal=breakfast";
@@ -273,9 +291,9 @@ function lunch()
 {
     window.location = "../meals/new.php?meal=lunch";
 }
-function snack()
+function e_snack()
 {
-    window.location = "../meals/new.php?meal=snack";
+    window.location = "../meals/new.php?meal=e_snack";
 }
 function dinner()
 {
