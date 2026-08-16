@@ -10,7 +10,7 @@ if(isset($_SESSION["user_name"]))
 	require '../navbar.php';
 	
 	
-	if(date('N') != 1)
+	if(date('N') != 0)
 		$fromDate = date('Y-m-d', strtotime("last Sunday"));
 	else
 		$fromDate = date("Y-m-d");
