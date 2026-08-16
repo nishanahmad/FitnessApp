@@ -10,7 +10,7 @@ if(isset($_SESSION["user_name"]))
 	
 	$userId = $_SESSION["user_id"];
 	$logMap = array();
-	$logs = mysqli_query($con, "SELECT * FROM weight_log WHERE user = $userId ORDER BY entered_on DESC LIMIT 14") or die(mysqli_error($con));
+	$logs = mysqli_query($con, "SELECT * FROM weight_log WHERE user = $userId ORDER BY entered_on DESC LIMIT 19") or die(mysqli_error($con));
 	foreach($logs as $log)
 	{
 		$logMap[date('dM',strtotime($log['entered_on']))] = $log['weight'];

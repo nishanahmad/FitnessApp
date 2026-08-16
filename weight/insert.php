@@ -8,10 +8,11 @@ session_start();
 if(isset($_SESSION["user_name"]))
 {
 	$weight = $_POST['weight'];
+	$userId = $_SESSION["user_id"];
 			
-	$sql="INSERT INTO weight_log (weight)
+	$sql="INSERT INTO weight_log (weight,user)
 		 VALUES
-		 ('$weight')";
+		 ('$weight',$userId)";
 
 	$result = mysqli_query($con, $sql) or die(mysqli_error($con));
 			
