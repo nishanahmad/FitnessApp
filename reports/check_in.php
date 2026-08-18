@@ -193,7 +193,7 @@ if(isset($_SESSION["user_name"]))
     <div class="card-summary mb-3">
       <div class="row">
         <div class="col">
-          <div class="big-number"><?php echo $Calories;?>/<?php echo $targetMap['Calories']['target'];?></div>
+          <div class="big-number"><?php echo round($Calories/$days,0);?>/<?php echo $targetMap['Calories']['target'];?></div>
         </div>
       </div>
     </div>
@@ -206,7 +206,7 @@ if(isset($_SESSION["user_name"]))
 			{																																									?>
 				<div class="d-flex justify-content-between mb-1">
 				<span><?php echo $name;?></span>
-				<span class="fw-semibold text-muted"><?php echo ${$name};?>/<?php echo $targetMap[$name]['target'];?></span>
+				<span class="fw-semibold text-muted"><?php echo round(${$name}/$days,1);?>/<?php echo $targetMap[$name]['target'];?></span>
 				</div>
 				<div class="progress mb-3">
 				<div class="progress-bar <?php echo $colorClassMap[$name];?>" style="width: <?php echo $percentage;?>%"></div>
